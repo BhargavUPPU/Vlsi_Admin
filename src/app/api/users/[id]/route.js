@@ -19,7 +19,7 @@ export async function PATCH(request, { params }) {
 
     // Update the user's role in the database
     const updatedUser = await db.user.update({
-      where: { id: parseInt(id) }, // Ensure id is parsed as an integer
+      where: { id }, // Use id directly as UUID
       data: { role },
     });
 
