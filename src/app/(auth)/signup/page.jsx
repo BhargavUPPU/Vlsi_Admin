@@ -4,7 +4,9 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { toast, ToastContainer } from "react-toastify";
 import Link from "next/link";
+import "react-toastify/dist/ReactToastify.css";
 
 const FormSchema = z
   .object({
@@ -48,11 +50,11 @@ const SignUp = () => {
     });
 
     if (response.ok) {
+      toast.success("User registered successfully");
       router.push("/signin");
-      console.log("User registered successfully");
     } else {
       const errorData = await response.json();
-      console.log("Failed to register user:", errorData.message);
+      toast.error(`Failed to register user: ${errorData.message}`);
     }
   };
 
@@ -155,6 +157,7 @@ const SignUp = () => {
           Sign In
         </Link>
       </p>
+      <ToastContainer />
     </form>
   );
 };
